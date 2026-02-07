@@ -1,12 +1,12 @@
 import pandas as pd
-
 from signal_generator import generate_hybrid_signals
 from mock_trading import MockTradingEnvironment, SignalTrader
 from performance_metrics import PerformanceMetrics
+import sys
 
 
-def load_prices(csv_path: str = "AAPL_10y_1d.csv") -> pd.Series:
-    df = pd.read_csv(csv_path)
+def load_prices(symbol) -> pd.Series:
+    df = pd.read_csv(f"data/{symbol}_10y_1d.csv")
 
     date_col = None
     for c in df.columns:
@@ -33,7 +33,8 @@ def load_prices(csv_path: str = "AAPL_10y_1d.csv") -> pd.Series:
 
 
 def main():
-    prices = load_prices("AAPL_10y_1d.csv")
+    symbol = sys.argv[1]
+    prices = load_prices(symbol)
 
     initial_capital = 10000.0
     commission = 0.001
