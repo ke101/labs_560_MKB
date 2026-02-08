@@ -1,7 +1,6 @@
 import pandas as pd
 import pandas_ta as ta
 
-
 class Category:
     def __init__(self, dataframe: pd.DataFrame, date_col: str = "datetime"):
         self.dataframe = dataframe
@@ -181,4 +180,5 @@ class Category:
         self.dataframe["PSARl"] = psar["PSARl_0.02_0.2"]
         self.dataframe["PSARs"] = psar["PSARs_0.02_0.2"]
         self.dataframe["PSARaf"] = psar["PSARaf_0.02_0.2"]
+
         self.dataframe["PSARr"] = psar["PSARr_0.02_0.2"]
