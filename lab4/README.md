@@ -21,7 +21,7 @@ Dependencies: Listed in requirements.txt.
 
 To set up:
 
-`pip install -r requirements.tx`
+`pip install -r requirements.txt`
 
 
 Command:
