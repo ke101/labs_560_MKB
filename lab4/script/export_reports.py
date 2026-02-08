@@ -3,12 +3,12 @@ from signal_generator import generate_hybrid_signals
 from mock_trading import MockTradingEnvironment, SignalTrader
 from performance_metrics import PerformanceMetrics
 import sys
-from data_collecting.py import DataHist
+from data_collecting import DataHist
 
 
 def load_prices(df) -> pd.Series:
     #df = pd.read_csv(f"data/{symbol}_10y_1d.csv")
-
+    df.reset_index(inplace = True)
     date_col = None
     for c in df.columns:
         if c.lower() in ["date", "datetime", "timestamp"]:
