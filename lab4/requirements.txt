@@ -1,0 +1,10 @@
+matplotlib==3.9.2
+numpy==1.26.4
+pandas==2.2.2
+yfinance==0.2.41
+gradio==4.41.0
+scikit-learn==1.5.1
+optuna==3.6.1
+pandas_ta==0.3.14b0
+EMD-signal==1.6.0
+torch==2.3.1
