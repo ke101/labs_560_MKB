@@ -1,0 +1,2 @@
+final_portfolio_value,total_return_pct,annualized_return_pct,volatility_pct,sharpe_ratio,max_drawdown_pct,start_date,end_date,benchmark_total_return_pct,strategy_total_return_pct,excess_return_pct
+39433.52464380002,294.3352464380002,14.749958980521516,19.0294335412881,0.8183882984734359,-26.723232724903152,2022-01-03 05:00:00,2024-01-05 05:00:00,1201.43236173568,294.3352464380002,-907.0971152976797
