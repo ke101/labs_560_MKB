@@ -205,5 +205,6 @@ class DataHist:
 
 
 if __name__ == "__main__":
-    c = DataHist("BTC-USD", 100, "Standard Indicators", interval="5m")
+    c = DataHist("BTC-USD", 365*10, "Standard Indicators", interval="1d")
+
     print(c.request_data())
