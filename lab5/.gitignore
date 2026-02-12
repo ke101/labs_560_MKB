@@ -13,11 +13,6 @@ __pycache__/
 dist/
 build/
 
-# Virtual environments
-venv/
-env/
-ENV/
-
 # IDE
 .vscode/
 .idea/
@@ -27,10 +22,6 @@ ENV/
 
 # macOS
 .DS_Store
-
-# Database dumps
-*.sql
-*.db
 
 # Presentation (not part of codebase)
 PPt/
