@@ -1,6 +1,6 @@
-# `560 LAB5 mkb`
+# 560 LAB5 mkb
 
-> **Brief Description:** `A Python-based pipeline that scrapes data about web seurity from Reddit, processes the text, and groups them into thematic clusters using K-Means and TF-IDF.`
+> **Brief Description:** A Python-based pipeline that scrapes data about web seurity from Reddit, processes the text, and groups them into thematic clusters using K-Means and TF-IDF.
 
 ### Table of Contents
 * [Overview](#overview)
@@ -18,8 +18,8 @@
 ---
 
 ### Overview
-* **Target Data:** `Data scraping from Reddit`
-* **Clustering Objective:** `Group Similar Messages`
+* **Target Data:** Data scraping from Reddit
+* **Clustering Objective:** Group Similar Messages
 * **Core Technologies:** ``
 
 ### Features
@@ -31,4 +31,7 @@
 ### Architecture & Workflow
 
 1. **Data Ingestion:**
+### Prequistises
+* Python 3.9+
+
 
