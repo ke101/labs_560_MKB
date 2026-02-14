@@ -1,4 +1,4 @@
-# `<Project Title>`
+# `<560 LAB5 mkb>`
 
 > **Brief Description:** `<A Python-based pipeline that scrapes data about web seurity from Reddit, processes the text, and groups them into thematic clusters using K-Means and TF-IDF.>`
 
@@ -19,15 +19,16 @@
 
 ### Overview
 `<Provide a slightly deeper dive into the "why" and "how".>`
-* **Target Data:** `<e.g., Real estate listings, news articles, product reviews>`
-* **Clustering Objective:** `<e.g., To find hidden market segments, to categorize unlabeled news>`
-* **Core Technologies:** `<e.g., BeautifulSoup for scraping, Scikit-Learn for K-Means, HuggingFace for embeddings>`
+* **Target Data:** `<data from Reddit>`
+* **Clustering Objective:** `<Group Similar Messages>`
+* **Core Technologies:** `<>`
 
 ### Features
 * 🕷️ **Automated Scraping:** Handles pagination, dynamic content rendering, and rate limiting.
 * 🧹 **Data Preprocessing:** Cleans HTML tags, handles missing values, and normalizes text/features.
-* 🧠 **Unsupervised Learning:** Implements `<Algorithm Name>` to discover natural groupings within the scraped dataset.
+* 🧠 **Unsupervised Learning:** Implements `<Kmeans>` to discover natural groupings within the scraped dataset.
 * 📊 **Visualization:** Generates 2D/3D scatter plots of the clusters using `<PCA / t-SNE / UMAP>`.
 
 ### Architecture & Workflow
+
 1. **Data Ingestion:**
