@@ -69,8 +69,11 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 
 [find_optimal_k.py](reddit-scraper/find_optimal_k.py): Ke Wu
 
+[main.py](reddit-scraper/main.py): Ke Wu
+
 
 ### More details about the project in README.pdf
+
 
 
 
