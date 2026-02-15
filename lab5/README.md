@@ -27,22 +27,30 @@ MYSQL_USER=root
 MYSQL_PASSWORD=
 MYSQL_DATABASE=reddit_db
 
+### Run Scraper
+`python scrape.py [data_length] --method [method]`
+
 ### Run Preprocessing
-python preprocess.py
+`python preprocess.py`
 
 Verify:
 mysql -u root -e "USE reddit_db; SELECT COUNT(*) AS cleaned_cnt FROM cleaned_posts;"
 mysql -u root -e "USE reddit_db; SELECT COUNT(*) AS raw_cnt FROM raw_posts;"
 
 ### Run Vectorization (Doc2Vec, 100-d)
-python vectorize.py
+`python vectorize.py`
 
 Verify:
 mysql -u root -e "USE reddit_db; SELECT COUNT(*) AS vec_cnt FROM post_vectors;"
 mysql -u root -e "USE reddit_db; SELECT vector_dim, COUNT(*) AS cnt FROM post_vectors GROUP BY vector_dim;"
 mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector) AS bytes_len, model_name FROM post_vectors LIMIT 3;"
 
-### More details in README.pdf
+### Run Cluster (Kmean) 
+`python cluster.py [mysql_username_password]`
+`python keyword.py [mysql_username_password]`
+
+### More details about the project in README.pdf
+
 
 
 
