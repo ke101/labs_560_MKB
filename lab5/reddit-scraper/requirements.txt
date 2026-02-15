@@ -16,19 +16,20 @@ mysql-connector-python>=8.2.0
 numpy>=1.24.0
 pandas>=2.0.0
 
-# --- NLP / Embedding (Member B) ---
+# --- NLP / Embedding ---
 gensim>=4.3.0
 nltk>=3.8.0
 
-# --- OCR (Member B) ---
+# --- OCR ---
 pytesseract>=0.3.10
 Pillow>=10.0.0
 
-# --- Clustering & visualisation (Member C) ---
+# --- Clustering & visualisation---
 scikit-learn>=1.3.0
 matplotlib>=3.7.0
 seaborn>=0.12.0
 wordcloud>=1.9.0
+sqlalchemy
 
 # --- Utilities ---
 python-dotenv>=1.0.0
