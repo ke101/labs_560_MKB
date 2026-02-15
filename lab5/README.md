@@ -12,7 +12,6 @@
 * [Usage](#usage)
   * [1. Running the Scraper](#1-running-the-scraper)
   * [2. Running the Clustering Model](#2-running-the-clustering-model)
-* [Results & Visualization](#results--visualization)
 * [Project Structure](#project-structure)
 
 ---
@@ -72,4 +71,5 @@ Verify:
 mysql -u root -e "USE reddit_db; SELECT COUNT(*) AS vec_cnt FROM post_vectors;"
 mysql -u root -e "USE reddit_db; SELECT vector_dim, COUNT(*) AS cnt FROM post_vectors GROUP BY vector_dim;"
 mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector) AS bytes_len, model_name FROM post_vectors LIMIT 3;"
+
 
