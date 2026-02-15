@@ -77,7 +77,8 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 
 
 
-### More details about the project in README.pdf
+### More details about the project in [README.pdf](560_lab5_mkb_report.pdf)
+
 
 
 
