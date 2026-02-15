@@ -53,6 +53,10 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 `python main.py [interval_num] [mysql_config]`
 
 ### Contributions
+[requirements.txt](reddit-scraper/requirements.txt): All members
+
+[reddit_db_dump.sql](reddit-scraper/reddit_db_dump.sql): Mingtao Ding
+
 [scrape.py](reddit-scraper/scrape.py): Mingtao Ding
 
 [database.py](reddit-scraper/database.py): Mingtao Ding
@@ -72,7 +76,9 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 [main.py](reddit-scraper/main.py): Ke Wu
 
 
+
 ### More details about the project in README.pdf
+
 
 
 
