@@ -57,6 +57,8 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 
 [database.py](database.py): Mingtao Ding
 
+[settup_db.sql](settup_db.sql) Mingtao Ding
+
 [preprocess.py](preprocess.py): Yi-Hsien Lou
 
 [vectorize.py](vectorize.py): Yi-Hsien Lou
@@ -67,6 +69,7 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 
 
 ### More details about the project in README.pdf
+
 
 
 
