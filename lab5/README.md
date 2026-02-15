@@ -49,7 +49,20 @@ mysql -u root -e "USE reddit_db; SELECT post_id, vector_dim, OCTET_LENGTH(vector
 `python cluster.py [mysql_username_password]`
 `python keyword.py [mysql_username_password]`
 
+### Whole Pipeline
+`python main.py [interval_num] [mysql_config]`
+
+### Contributions
+[scrape.py](scrape.py): Mingtao Ding
+[database.py](database.py): Mingtao Ding
+[preprocess.py](preprocess.py): Yi-Hsien Lou
+[vectorize.py](vectorize.py): Yi-Hsien Lou
+[cluster.py](cluster.py): Ke Wu
+[keyword.py](keyword.py): Ke Wu
+
+
 ### More details about the project in README.pdf
+
 
 
 
