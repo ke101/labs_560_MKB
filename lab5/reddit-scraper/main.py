@@ -38,9 +38,7 @@ class PipelineOrchestrator:
         
     def run_scraping(self):
         """Execute the scraping stage"""
-        print(f"\n{'='*60}")
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 1: Scraping Data")
-        print(f"{'='*60}")
         
         try:
             cmd = ['python', 'scrape.py', self.data_number, '--method', self.method]
@@ -48,10 +46,10 @@ class PipelineOrchestrator:
             
             if result.returncode == 0:
                 print("Scraping completed successfully")
-                print(f"  - Collected {self.data_number} posts")
+                print(f"Collected {self.data_number} posts")
                 return True
             else:
-                print("✗ Scraping failed")
+                print("Scraping failed")
                 print(f"  Error: {result.stderr}")
                 return False
                 
@@ -84,7 +82,7 @@ class PipelineOrchestrator:
             print("Preprocessing completed")
             
             # Run vectorization
-            print("→ Running vectorize.py...")
+            print("Running vectorize.py...")
             result = subprocess.run(['python', 'vectorize.py'], 
                                   capture_output=True, text=True, timeout=180)
             
@@ -94,7 +92,7 @@ class PipelineOrchestrator:
                 return False
             
             print("Vectorization completed")
-            print("  - Text cleaned and embedded")
+            print(" Text cleaned and embedded")
             return True
             
         except subprocess.TimeoutExpired:
