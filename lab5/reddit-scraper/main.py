@@ -143,9 +143,7 @@ class PipelineOrchestrator:
     
     def run_keyword_extraction(self):
         """Execute the keyword extraction stage"""
-        print(f"\n{'='*60}")
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 4: Keyword Extraction")
-        print(f"{'='*60}")
         
         try:
             username = MYSQL_CONFIG['user']
@@ -182,32 +180,22 @@ class PipelineOrchestrator:
         print(f"Time: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
         
-        # Stage 1: Scraping
         if not self.run_scraping():
-            print(f"\n{'!'*60}")
             print("PIPELINE ABORTED: Scraping failed")
-            print(f"{'!'*60}\n")
             return False
         
-        # Stage 2: Preprocessing & Vectorization
         if not self.run_preprocessing():
             print(f"\n{'!'*60}")
             print("! PIPELINE ABORTED: Preprocessing failed")
             print(f"{'!'*60}\n")
             return False
-        
-        # Stage 3: Clustering
+    
         if not self.run_clustering():
-            print(f"\n{'!'*60}")
             print("PIPELINE ABORTED: Clustering failed")
-            print(f"{'!'*60}\n")
             return False
-        
-        # Stage 4: Keyword Extraction
+    
         if not self.run_keyword_extraction():
-            print(f"\n{'!'*60}")
             print("PIPELINE ABORTED: Keyword extraction failed")
-            print(f"{'!'*60}\n")
             return False
         
         # Success
@@ -353,13 +341,11 @@ class ClusterSearch:
         """Display cluster information and posts"""
         cluster = self.clusters[cluster_id]
         
-        print(f"\n{'='*60}")
+
         print(f"CLUSTER #{cluster_id} (Match Score: {score:.2%})")
-        print(f"{'='*60}")
         print(f"Keywords: {', '.join(cluster['keywords'][:10])}")
         print(f"Total Posts: {cluster['count']}")
         print(f"\nTop Posts:")
-        print("-" * 60)
         
         posts = self.get_cluster_posts(cluster_id, limit=10)
         
