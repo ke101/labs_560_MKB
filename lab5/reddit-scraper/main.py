@@ -37,8 +37,7 @@ class PipelineOrchestrator:
         self.pipeline_thread = None
         
     def run_scraping(self):
-        """Execute the scraping stage"""
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 1: Scraping Data")
+        print(f"STAGE 1: Scraping Data")
         
         try:
             cmd = ['python', 'scrape.py', self.data_number, '--method', self.method]
@@ -65,12 +64,10 @@ class PipelineOrchestrator:
     
     def run_preprocessing(self):
         """Execute the preprocessing and vectorization stage"""
-        print(f"\n{'='*60}")
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 2: Preprocessing & Vectorization")
-        print(f"{'='*60}")
+        print(f"STAGE 2: Preprocessing & Vectorization")
         
         try:
-            print("Running preprocessing.py...")
+            print("Running preprocessing.py")
             result = subprocess.run(['python', 'preprocessing.py'], 
                                   capture_output=True, text=True, timeout=180)
             
@@ -82,7 +79,7 @@ class PipelineOrchestrator:
             print("Preprocessing completed")
             
             # Run vectorization
-            print("Running vectorize.py...")
+            print("Running vectorize.py")
             result = subprocess.run(['python', 'vectorize.py'], 
                                   capture_output=True, text=True, timeout=180)
             
@@ -107,16 +104,14 @@ class PipelineOrchestrator:
     
     def run_clustering(self):
         """Execute the clustering stage"""
-        print(f"\n{'='*60}")
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 3: Clustering")
-        print(f"{'='*60}")
+        print(f"STAGE 3: Clustering")
         
         try:
             # Get MySQL credentials
             username = MYSQL_CONFIG['user']
             password = MYSQL_CONFIG['password']
             
-            print("Running cluster script...")
+            print("Running cluster script")
             cmd = ['python', 'cluster', username, password]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
             
@@ -126,7 +121,7 @@ class PipelineOrchestrator:
                 return True
             else:
                 print("Clustering failed")
-                print(f"  Error: {result.stderr}")
+                print(f" Error: {result.stderr}")
                 return False
                 
         except subprocess.TimeoutExpired:
@@ -141,23 +136,23 @@ class PipelineOrchestrator:
     
     def run_keyword_extraction(self):
         """Execute the keyword extraction stage"""
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] STAGE 4: Keyword Extraction")
+        print(f"STAGE 4: Keyword Extraction")
         
         try:
             username = MYSQL_CONFIG['user']
             password = MYSQL_CONFIG['password']
             
-            print("Running keywords script...")
+            print("Running keywords script")
             cmd = ['python', 'keywords', username, password]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
             
             if result.returncode == 0:
                 print("Keyword extraction completed")
-                print("  - Keywords generated for each cluster")
+                print("Keywords generated for each cluster")
                 return True
             else:
                 print("Keyword extraction failed")
-                print(f"  Error: {result.stderr}")
+                print(f"Error: {result.stderr}")
                 return False
                 
         except subprocess.TimeoutExpired:
@@ -173,9 +168,7 @@ class PipelineOrchestrator:
     def run_full_pipeline(self):
         """Execute the complete pipeline"""
         start_time = datetime.now()
-        print(f"\n{'#'*60}")
         print(f"PIPELINE EXECUTION STARTED")
-        print(f"Time: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
         
         if not self.run_scraping():
@@ -183,9 +176,7 @@ class PipelineOrchestrator:
             return False
         
         if not self.run_preprocessing():
-            print(f"\n{'!'*60}")
             print("! PIPELINE ABORTED: Preprocessing failed")
-            print(f"{'!'*60}\n")
             return False
     
         if not self.run_clustering():
@@ -251,8 +242,8 @@ class ClusterSearch:
             
             # Load clusters with their keywords
             query = """
-                SELECT cluster_id, keywords, posts_count 
-                FROM clusters 
+                SELECT cluster_id, keywords
+                FROM  cluster_keyword
                 ORDER BY cluster_id
             """
             cursor.execute(query)
@@ -276,20 +267,8 @@ class ClusterSearch:
             return len(self.clusters) > 0
             
         except Exception as e:
-            print(f"✗ Error loading clusters: {str(e)}")
+            print(f"Error loading clusters: {str(e)}")
             return False
-    
-    def vectorize_query(self, query):
-        """Convert query to vector (simple TF-IDF style)"""
-        from sklearn.feature_extraction.text import TfidfVectorizer
-        
-        # Create corpus with query and all cluster keywords
-        corpus = [query] + list(self.cluster_keywords.values())
-        
-        vectorizer = TfidfVectorizer(max_features=100)
-        vectors = vectorizer.fit_transform(corpus)
-        
-        return vectors[0], vectors[1:]
     
     def find_matching_cluster(self, query):
         """Find the cluster that best matches the query"""
@@ -318,7 +297,7 @@ class ClusterSearch:
             
             query = """
                 SELECT title, author, score, created_date, url
-                FROM posts
+                FROM raw_posts
                 WHERE cluster_id = %s
                 ORDER BY score DESC
                 LIMIT %s
@@ -355,57 +334,10 @@ class ClusterSearch:
         # Create visualization
         # self.visualize_cluster(cluster_id, posts)
     
-    
 
-def interactive_mode(orchestrator, searcher):
-    """Run interactive cluster search while pipeline updates in background"""
-    
-    while orchestrator.is_running:
-        try:
-            user_input = input("Search> ").strip()
-            
-            if not user_input:
-                continue
-            
-            if user_input.lower() in ['quit', 'exit', 'q']:
-                print("\nShutting down...")
-                orchestrator.stop()
-                break
-            
-            if user_input.lower() == 'status':
-                if orchestrator.last_run:
-                    elapsed = (datetime.now() - orchestrator.last_run).total_seconds() / 60
-                    next_run = orchestrator.interval - elapsed
-                    print(f"\nLast update: {orchestrator.last_run.strftime('%H:%M:%S')}")
-                    print(f"Next update in: {max(0, next_run):.1f} minutes")
-                else:
-                    print("\nPipeline has not completed first run yet")
-                continue
-            
-            # Search for matching cluster
-            print(f"\nSearching for: '{user_input}'...")
-            result = searcher.find_matching_cluster(user_input)
-            
-            if result:
-                cluster_id, score = result
-                searcher.display_cluster_results(cluster_id, score)
-            else:
-                print("No matching cluster found. Try different keywords.")
-            
-        except KeyboardInterrupt:
-            print("\n\nShutting down...")
-            orchestrator.stop()
-            break
-        except EOFError:
-            print("\n\nShutting down...")
-            orchestrator.stop()
-            break
-        except Exception as e:
-            print(f"Error: {str(e)}")
 
 
 def main():
-    """Main entry point"""
     # Parse command line arguments
     parser = argparse.ArgumentParser(
         description='Reddit Data Pipeline',
@@ -447,7 +379,7 @@ def main():
     orchestrator.start_background_updates()
     interactive_mode(orchestrator, searcher)
     
-    print("\nPipeline stopped. Goodbye!")
+    print("\nPipeline stopped.")
 
 
 if __name__ == "__main__":
